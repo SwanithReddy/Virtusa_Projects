@@ -2,9 +2,10 @@ import java.util.*;
 public class Account {
     private String accountholdername;
     private int balance;
-    private Queue<Integer> history;
+    private List<Integer> history;
 
     public Account(String accountholdername,int balance){
+        if(balance<0)throw new IllegalArgumentException("balance cannot be -ve");
         this.accountholdername=accountholdername;
         this.balance=balance;
         this.history=new LinkedList<>();
@@ -42,10 +43,10 @@ public class Account {
     }
 
     private void addTransaction(int trans){
-        if(history.size()==5){
-            history.poll();
+        history.add(trans);
+        if(history.size()>5){
+            history.remove(0);
         }
-        history.offer(trans);
     }
 
 
